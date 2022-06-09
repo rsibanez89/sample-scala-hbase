@@ -7,7 +7,16 @@
         {
             "type": "scala",
             "request": "launch",
-            "name": "Run",
+            "name": "Run HBase Sample",
+            "mainClass": "example.HBaseExample",
+            "args": [],
+            "jvmOptions": [],
+            "env": {}
+        },
+        {
+            "type": "scala",
+            "request": "launch",
+            "name": "Run Hello",
             "mainClass": "example.Hello",
             "args": [],
             "jvmOptions": [],
