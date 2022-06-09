@@ -1,0 +1,10 @@
+.bloop/*
+.metals/*
+
+# Volumes
+/logs
+
+# Maven
+target/
+dist/
+dependency-reduced-pom.xml
