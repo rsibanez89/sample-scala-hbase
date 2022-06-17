@@ -1,6 +1,6 @@
 FROM openjdk:8
 
-ENV HBASE_VERSION=2.4.12
+ENV HBASE_VERSION=2.1.6
 
 RUN mkdir -p /var/hbase && \
     cd /opt && \

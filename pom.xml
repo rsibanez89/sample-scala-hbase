@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example</groupId>
-  <artifactId>.</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>.</name>
+  <artifactId>sample-scala-hbase</artifactId>
+  <version>1.0.0</version>
+  <name>Sample Scala HBase App</name>
   <description>A minimal Scala project using the Maven build tool.</description>
   <licenses>
     <license>
       <name>My License</name>
-      <url>http://....</url>
-      <distribution>repo</distribution>
+      <url>https://github.com/rsibanez89/sample-scala-hbase</url>
+      <distribution>git@github.com:rsibanez89/sample-scala-hbase.git</distribution>
     </license>
   </licenses>
 
@@ -19,7 +19,7 @@
     <encoding>UTF-8</encoding>
     <scala.version>2.13.8</scala.version>
     <hadoop.version>3.2.0</hadoop.version>
-    <hbase.version>2.4.12</hbase.version>
+    <hbase.version>2.1.6</hbase.version>
   </properties>
 
   <dependencies>
@@ -63,10 +63,9 @@
     <testSourceDirectory>src/test/scala</testSourceDirectory>
     <plugins>
       <plugin>
-        <!-- see http://davidb.github.com/scala-maven-plugin -->
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
-        <version>3.3.2</version>
+        <version>4.6.1</version>
         <configuration></configuration>
         <executions>
           <execution>
