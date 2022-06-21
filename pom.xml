@@ -18,8 +18,8 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <encoding>UTF-8</encoding>
     <scala.version>2.13.8</scala.version>
-    <hadoop.version>3.2.0</hadoop.version>
-    <hbase.version>2.1.6</hbase.version>
+    <hadoop.version>3.2.3</hadoop.version>
+    <hbase.version>2.4.4</hbase.version>
   </properties>
 
   <dependencies>
