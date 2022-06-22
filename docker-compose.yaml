@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+
+  zookeeper:
+    image: zookeeper:3.8
+    environment:
+      - ZOO_4LW_COMMANDS_WHITELIST=* # Allows Hbase to connect to Zookeeper
+    ports:
+      - 2181:2181
+
+  hbase:
+    build:
+      context: .
+      dockerfile: Dockerfile.hbase
+    ports:
+      - 16000:16000 # master
+      - 16010:16010 # master-ui
+      - 16020:16020 # regionserver
+      - 16030:16030 # regionserver-ui

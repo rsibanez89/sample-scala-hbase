@@ -1,6 +1,6 @@
 FROM openjdk:11
 
-ENV HBASE_VERSION=2.4.4
+ENV HBASE_VERSION=2.2.7
 
 RUN cd /opt && \
     wget -q https://archive.apache.org/dist/hbase/${HBASE_VERSION}/hbase-${HBASE_VERSION}-bin.tar.gz && \
@@ -8,6 +8,6 @@ RUN cd /opt && \
 
 WORKDIR /opt/hbase-${HBASE_VERSION}
 
-COPY hbase-site.xml conf/hbase-site.xml
+COPY hbase-site.zk.xml conf/hbase-site.xml
 
 CMD ./bin/start-hbase.sh && tail -F logs/hbase*.log

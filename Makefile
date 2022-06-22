@@ -1,11 +1,11 @@
 clean_build_run: clean build run
 
 build:
-	docker build -f Dockerfile.hbase -t hbase:latest .
+	docker build -f Dockerfile.hbase.zk -t hbase:latest .
 
 run:
 	docker run \
-		-v ${PWD}/logs:/opt/hbase-2.4.12/logs/ \
+		-v ${PWD}/logs:/opt/hbase-2.2.7/logs/ \
 		-p 2181:2181 \
 		-p 16010:16010 \
 		-p 16000:16000 \
@@ -22,6 +22,9 @@ clean:
 run_shell:
 	docker exec -ti hbase-1 ./bin/hbase shell
 
+run_zookeeper_cli:
+	docker exec -ti hbase-1 ./bin/hbase zkcli
+
 run_rest:
 	docker exec -ti hbase-1 ./bin/hbase rest start
 
@@ -30,3 +33,11 @@ run_start:
 
 inspect:
 	docker exec -ti hbase-1 bash
+
+
+### Compose
+run_compose:
+	docker-compose -f docker-compose.yaml up --build | tee docker-compose.log
+
+stop_compose:
+	docker-compose -f docker-compose.yaml down

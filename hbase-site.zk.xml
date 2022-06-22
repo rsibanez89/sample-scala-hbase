@@ -27,13 +27,4 @@
     <value>localhost</value>
     <description>For the region server to use localhost instead of container name. Otherwise, the Scala app will try to connect to [container-name:16020] and it will fail to connect. Another option is to add "127.0.0.1 container-name" to the host file.</description>
   </property>
-  <property>
-    <name>hbase.zookeeper.quorum</name>
-    <value>zookeeper</value>
-    <description>This configuration is for running zookeeper in a different container. HBase will try to connect to [zookeeper:2181].</description>
-  </property>
-    <property>
-    <name>hbase.zookeeper.property.clientPort</name>
-    <value>2181</value>
-  </property>
 </configuration>
