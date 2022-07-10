@@ -1,16 +1,18 @@
 # Sample Scala app using HBase
-This app install HBase in a Docker container and then runs a simple Scala app connecting to HBase.
+This app installs HBase in a Docker container and then runs a simple Scala app connecting to HBase.
 
 HBase comes with its own Zookeeper.
-HBase 2.2.7 comes with Zookeeper 3.4
-HBase >=2.3 comes with Zookeeper 3.5
-If the configuration `hbase.cluster.distributed` is false it will start its own Zookeeper.
-The configuration `HBASE_MANAGES_ZK=false` is ignored if `hbase.cluster.distributed` is false, Zookeeper will start anyways.
+- HBase 2.2.7 comes with Zookeeper 3.4
+- HBase >=2.3 comes with Zookeeper 3.5
+
+If the configuration `hbase.cluster.distributed` is false it will start its own Zookeeper. The configuration `HBASE_MANAGES_ZK=false` is ignored and Zookeeper will start anyways.
 
 ## Runing HBase with its own Zookeeper
 This example runs a single container with HBase 2.2.7 and Zookeeper 3.4.
+
 The reason for picking this version is that Zookeeper 3.5 inside HBase container doesn't allow any external connection.
 So the client Scala app can't connect to Zookeeper. [Check error 2 at the bottom]
+
 The ports required for this container to run are:
 ```js
 16000:16000 # master
@@ -21,10 +23,10 @@ The ports required for this container to run are:
 ```
 
 #### 1- Build the hbase image:
-make build
+`make build`
 
 #### 2- Run the container with hbase and start the server:
-make run
+`make run`
 
 #### 3- Check the master node is running and region servers are running:
 - http://localhost:16010/master-status
@@ -34,41 +36,47 @@ make run
 - http://localhost:16010/zk.jsp
 
 #### 5- Run the hbase shell:
-make run_shell
+`make run_shell`
 
 then try the following commands:
-- status
-- list
-- create 'table_test', 'cf'
-- list 'table_test'
-- put 'table_test', 'row1', 'cf:a', 'value1'
-- put 'table_test', 'row2', 'cf:b', 'value2'
-- put 'table_test', 'row3', 'cf:c', 'value3'
-- scan 'table_test'
-- get 'table_test', 'row1'
+- `status`
+- `list`
+- `create 'table_test', 'cf'`
+- `list 'table_test'`
+- `put 'table_test', 'row1', 'cf:a', 'value1'`
+- `put 'table_test', 'row2', 'cf:b', 'value2'`
+- `put 'table_test', 'row3', 'cf:c', 'value3'`
+- `scan 'table_test'`
+- `get 'table_test', 'row1'`
 
-#### 6- Run the app from debugger or use the CLI:
-- mvn scala:compile
-- mvn scala:run -DmainClass=example.HBaseExample
+#### 6- Run the app from the debugger or use the CLI:
+- `mvn scala:compile`
+- `mvn scala:run -DmainClass=example.HBaseExample`
 
 #### 7- Clean docker image and logs
-make clean
+`make clean`
 
 
 
 ## Runing HBase with an external Zookeeper
 This example runs a multiple containers using docker compose. It runs HBase 2.4.4 and Zookeeper 3.5.
-Via the configurations in `hbase-site.xml` we tell HBase that the Zookeeper is running in `zookeeper:2181`.
+
+Using the configurations in `hbase-site.xml`, we tell HBase that the Zookeeper is running in `zookeeper:2181`.
+
 Note that  `hbase.cluster.distributed` is false, so Hbase image will still run its own internal zookeeper, but we are not exposing it to the host and we are not using it.
 
 #### 1- Start the services HBase and Zookeeper:
-make run_compose
+`make run_compose`
 
-#### 2- Optional do the same checks as above:
+#### 2- (Optional) do the same checks as previous example:
 Make sure zookeper and Hbase are running.
 
-#### 2- Stop the services HBase and Zookeeper:
-make stop_compose
+#### 3- Run the app from the debugger or use the CLI:
+- `mvn scala:compile`
+- `mvn scala:run -DmainClass=example.HBaseExample`
+
+#### 4- Stop the services HBase and Zookeeper:
+`make stop_compose`
 
 
 ## Common errors:
@@ -82,7 +90,14 @@ java.net.UnknownHostException: 8bdbfd07b38d
 	at java.net.InetAddress.getAllByName(InetAddress.java:1193)
 	at java.net.InetAddress.getAllByName(InetAddress.java:1127)
 ```
-To fix this, make sure to setup: `hbase.master.ipc.address`, `hbase.regionserver.ipc.address`, `hbase.master.hostname` and `hbase.regionserver.hostname` as in the file `hbase-site.xml`
+To fix this, make sure to setup: 
+- `hbase.master.ipc.address`
+- `hbase.regionserver.ipc.address`
+- `hbase.master.hostname`
+- `hbase.regionserver.hostname`
+
+As in the file `hbase-site.xml`
+
 ![HBase config](./images/hbase-conf.png)
 
 2. Unable to read additional data from server sessionid 0x0, likely server has closed socket, closing socket connection and attempting reconnect.
